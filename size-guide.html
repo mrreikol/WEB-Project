@@ -8,6 +8,7 @@
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/size-guide.css">
+    <link rel="stylesheet" href="css/endterm.css">
 </head>
 <body>
     <header class="site-header">
@@ -27,14 +28,25 @@
 
     <main id="main-content" class="container page-content">
         <h1>Size Guide</h1>
-        <p>Use the table to compare your measurements.</p>
+        <p class="page-intro">Check your measurements against the sample size chart.</p>
 
-        <div class="row g-4 section">
-            <section class="col-lg-8" aria-labelledby="size-title">
+        <div class="size-layout">
+            <section aria-labelledby="size-title">
                 <h2 id="size-title">Clothing measurements (cm)</h2>
+                <div class="size-picker">
+                    <label class="form-label" for="size-select">Highlight a size</label>
+                    <select class="form-select" id="size-select">
+                        <option value="">Select a size</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+                </div>
+
                 <div class="table-responsive">
                     <table class="table table-bordered size-table">
-                        <caption>Sample measurements from our wireframe. This is not an official MSQ size chart.</caption>
+                        <caption class="visually-hidden">Sample measurements for the student project.</caption>
                         <thead>
                             <tr>
                                 <th scope="col">Size</th>
@@ -47,57 +59,57 @@
                         <tbody>
                             <tr>
                                 <th scope="row">S</th>
-                                <td>84–88</td>
-                                <td>66–70</td>
-                                <td>90–94</td>
-                                <td>66</td>
+                                <td>84–88</td><td>66–70</td><td>90–94</td><td>66</td>
                             </tr>
                             <tr>
                                 <th scope="row">M</th>
-                                <td>88–92</td>
-                                <td>70–74</td>
-                                <td>94–98</td>
-                                <td>68</td>
+                                <td>88–92</td><td>70–74</td><td>94–98</td><td>68</td>
                             </tr>
                             <tr>
                                 <th scope="row">L</th>
-                                <td>92–98</td>
-                                <td>74–80</td>
-                                <td>98–104</td>
-                                <td>70</td>
+                                <td>92–98</td><td>74–80</td><td>98–104</td><td>70</td>
                             </tr>
                             <tr>
                                 <th scope="row">XL</th>
-                                <td>98–104</td>
-                                <td>80–86</td>
-                                <td>104–110</td>
-                                <td>72</td>
+                                <td>98–104</td><td>80–86</td><td>104–110</td><td>72</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <p class="note">For 2XL measurements, <a href="https://wa.me/77787777674" target="_blank" rel="noopener noreferrer">ask the store on WhatsApp</a>.</p>
+
+                <p id="size-message" role="status"></p>
+                <p class="note">Sample measurements for the student project.
+                    For 2XL, <a href="https://wa.me/77787777674" target="_blank" rel="noopener noreferrer">ask the store</a>.
+                </p>
             </section>
 
-            <aside class="col-lg-4">
-                <div class="info-box">
-                    <h2>How to measure</h2>
-                    <ol class="measure-list">
-                        <li>Bust — around the fullest part.</li>
-                        <li>Waist — around the natural waist.</li>
-                        <li>Hips — around the widest point.</li>
-                        <li>Compare your measurements with the table.</li>
-                    </ol>
+            <aside class="review-panel measurement-panel">
+                <h2>How to measure</h2>
+                <div class="measure-item">
+                    <button type="button" class="measure-button" aria-expanded="true" aria-controls="measure-bust">
+                        Bust <span aria-hidden="true">−</span>
+                    </button>
+                    <p class="measure-text" id="measure-bust">Measure around the fullest part of your chest.</p>
+                </div>
+                <div class="measure-item">
+                    <button type="button" class="measure-button" aria-expanded="false" aria-controls="measure-waist">
+                        Waist <span aria-hidden="true">+</span>
+                    </button>
+                    <p class="measure-text is-collapsed" id="measure-waist">Measure around your natural waist.</p>
+                </div>
+                <div class="measure-item">
+                    <button type="button" class="measure-button" aria-expanded="false" aria-controls="measure-hips">
+                        Hips <span aria-hidden="true">+</span>
+                    </button>
+                    <p class="measure-text is-collapsed" id="measure-hips">Measure around the widest part of your hips.</p>
                 </div>
             </aside>
         </div>
 
-        <section class="help-box">
-            <div>
-                <h2>Need help with sizing?</h2>
-                <p>Ask the store for the measurements of your chosen garment.</p>
-            </div>
-            <a href="contact.html" class="btn btn-outline-dark">Contact us</a>
+        <section class="review-panel size-help">
+            <h2>Need help with sizing?</h2>
+            <a class="btn btn-outline-dark" href="https://wa.me/77787777674"
+               target="_blank" rel="noopener noreferrer">Ask on WhatsApp</a>
         </section>
     </main>
 
@@ -129,5 +141,8 @@
             <p>Ismail, Mustafa, Abilkayir</p>
         </div>
     </footer>
+
+    <script src="js/vendor/jquery-3.7.1.min.js"></script>
+    <script src="js/size-guide.js"></script>
 </body>
 </html>
