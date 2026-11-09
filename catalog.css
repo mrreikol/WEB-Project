@@ -1,0 +1,294 @@
+/* Styles for catalog.html */
+
+/* General styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #222;
+    background-color: #fff;
+    line-height: 1.6;
+}
+
+h1 {
+    margin-bottom: 12px;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 27px;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+a {
+    color: #222;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #806b50;
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+}
+
+.page-content {
+    padding-top: 40px;
+    padding-bottom: 50px;
+}
+
+.section {
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+.note {
+    margin-top: 18px;
+    font-size: 13px;
+    color: #666;
+}
+
+.btn, .form-control {
+    border-radius: 0;
+}
+
+.btn {
+    padding: 10px 22px;
+    font-size: 14px;
+}
+
+/* Header and navigation */
+.site-header {
+    border-bottom: 1px solid #ddd;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.logo {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-link {
+    padding: 8px 0;
+    color: #333;
+}
+
+.nav-link.active {
+    border-bottom: 2px solid #222;
+    font-weight: 600;
+}
+
+/* Product cards */
+.product-photo {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.product-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: contain;
+    background-color: #f1eee8;
+}
+
+.new-label {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    background-color: #fff;
+    font-size: 12px;
+}
+
+.product-card h3 {
+    margin-bottom: 8px;
+}
+
+.product-card p {
+    margin-bottom: 12px;
+}
+
+/* Catalog page */
+.categories h2 {
+    font-size: 22px;
+}
+
+.categories ul {
+    padding-left: 20px;
+}
+
+.categories li {
+    margin-bottom: 15px;
+}
+
+.catalog-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 30px;
+}
+
+.categories {
+    padding: 25px;
+    background-color: #f4f3ef;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 20px;
+}
+
+.product-card {
+    min-width: 0;
+}
+
+.product-description {
+    min-height: 66px;
+    font-size: 14px;
+    color: #666;
+}
+
+.product-price {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.product-sizes {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Footer */
+.site-footer {
+    padding: 25px 0;
+    background-color: #f4f3ef;
+    border-top: 1px solid #ddd;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-logo {
+    width: 55px;
+    height: 55px;
+}
+
+.footer-content p {
+    margin: 10px 0 0;
+    font-size: 14px;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-size: 14px;
+}
+
+.social-links {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .main-nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-links {
+        gap: 15px;
+    }
+
+    .catalog-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .nav-links {
+        gap: 10px;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .page-content {
+        padding-top: 25px;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content, .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

@@ -8,6 +8,7 @@
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/catalog.css">
+    <link rel="stylesheet" href="css/endterm.css">
 </head>
 <body>
     <header class="site-header">
@@ -15,6 +16,7 @@
             <a href="index.html">
                 <img class="logo" src="images/msq-logo.png" alt="MSQ home">
             </a>
+
             <ul class="nav-links">
                 <li><a class="nav-link" href="index.html">Home</a></li>
                 <li><a class="nav-link active" href="catalog.html" aria-current="page">Catalog</a></li>
@@ -27,94 +29,59 @@
 
     <main class="container page-content">
         <h1>Catalog</h1>
-        <p>Textures, layers and everyday essentials from MSQ.</p>
-        <p class="mb-4">6 pieces for your everyday wardrobe</p>
+        <p class="page-intro">Textures, layers and everyday essentials from MSQ.</p>
 
         <div class="catalog-layout">
-            <aside class="categories">
+            <aside class="review-panel category-panel">
                 <h2>Categories</h2>
-                <ul>
-                    <li><a href="#chocolate-cardigan">Knitwear</a></li>
-                    <li><a href="#chocolate-polo">Polo shirts</a></li>
-                    <li><a href="#graphite-jacket">Outerwear</a></li>
-                    <li><a href="#indigo-jeans">Denim</a></li>
-                    <li><a href="#brown-sneakers">Shoes</a></li>
-                    <li><a href="#club-cap">Accessories</a></li>
+
+                <ul id="category-list">
+                    <li><button type="button" data-category="all" aria-pressed="true">All categories</button></li>
+                    <li><button type="button" data-category="knitwear" aria-pressed="false">Knitwear</button></li>
+                    <li><button type="button" data-category="polo" aria-pressed="false">Polo shirts</button></li>
+                    <li><button type="button" data-category="outerwear" aria-pressed="false">Outerwear</button></li>
+                    <li><button type="button" data-category="denim" aria-pressed="false">Denim</button></li>
+                    <li><button type="button" data-category="shoes" aria-pressed="false">Shoes</button></li>
+                    <li><button type="button" data-category="accessories" aria-pressed="false">Accessories</button></li>
                 </ul>
-                <a class="btn btn-outline-dark mt-3" href="size-guide.html">Size guide</a>
+
+                <a class="btn btn-outline-dark" href="size-guide.html">Size guide</a>
             </aside>
 
-            <section aria-label="Products">
-                <div class="products-grid">
-                    <article class="product-card" id="chocolate-cardigan">
-                        <div class="product-photo">
-                            <img src="images/cardigan.png" alt="Brown ribbed cardigan with a stand collar and a full zip">
-                            <span class="new-label">New</span>
-                        </div>
-                        <h3>Chocolate Zip Cardigan</h3>
-                        <p class="product-description">Ribbed texture, a stand collar and a full zip. A rich brown layer to pair with denim.</p>
-                        <p class="product-price">24,990 ₸</p>
-                        <p class="product-sizes">Sizes: S, M, L, XL, 2XL</p>
-                        <a class="btn btn-outline-dark" href="https://wa.me/77787777674" target="_blank" rel="noopener noreferrer">Contact the store</a>
-                    </article>
-                    <article class="product-card" id="chocolate-polo">
-                        <div class="product-photo">
-                            <img src="images/polo.png" alt="Brown short-sleeve ribbed polo with a zip neckline">
-                            <span class="new-label">New</span>
-                        </div>
-                        <h3>Chocolate Zip Polo</h3>
-                        <p class="product-description">Vertical ribbing, a classic collar and a zip neckline. An easy way to dress up your day.</p>
-                        <p class="product-price">17,990 ₸</p>
-                        <p class="product-sizes">Sizes: S, M, L, XL, 2XL</p>
-                        <a class="btn btn-outline-dark" href="https://wa.me/77787777674" target="_blank" rel="noopener noreferrer">Contact the store</a>
-                    </article>
-                    <article class="product-card" id="graphite-jacket">
-                        <div class="product-photo">
-                            <img src="images/puffer-jacket.png" alt="Grey quilted jacket with a hood and zip front">
-                            <span class="new-label">New</span>
-                        </div>
-                        <h3>Graphite Hooded Jacket</h3>
-                        <p class="product-description">A graphite quilted jacket with a hood and zip front. Finish your look with a clean outer layer.</p>
-                        <p class="product-price">44,990 ₸</p>
-                        <p class="product-sizes">Sizes: S, M, L, XL, 2XL</p>
-                        <a class="btn btn-outline-dark" href="https://wa.me/77787777674" target="_blank" rel="noopener noreferrer">Contact the store</a>
-                    </article>
-                    <article class="product-card" id="indigo-jeans">
-                        <div class="product-photo">
-                            <img src="images/jeans.png" alt="Dark indigo straight-leg MSQ jeans with contrast stitching">
-                            <span class="new-label">New</span>
-                        </div>
-                        <h3>Indigo Straight Jeans</h3>
-                        <p class="product-description">Dark indigo denim, a straight leg and contrast stitching. A foundation for everyday outfits.</p>
-                        <p class="product-price">22,990 ₸</p>
-                        <p class="product-sizes">Sizes: S, M, L, XL, 2XL</p>
-                        <a class="btn btn-outline-dark" href="https://wa.me/77787777674" target="_blank" rel="noopener noreferrer">Contact the store</a>
-                    </article>
-                    <article class="product-card" id="brown-sneakers">
-                        <div class="product-photo">
-                            <img src="images/sneakers.png" alt="Dark brown MSQ lace-up sneakers with white soles">
-                            <span class="new-label">New</span>
-                        </div>
-                        <h3>Dark Brown Sneakers</h3>
-                        <p class="product-description">Dark brown panels, a lace-up front and a white sole. A smart finish for relaxed looks.</p>
-                        <p class="product-price">29,990 ₸</p>
-                        <p class="product-sizes">Sizes: Ask the store</p>
-                        <a class="btn btn-outline-dark" href="https://wa.me/77787777674" target="_blank" rel="noopener noreferrer">Contact the store</a>
-                    </article>
-                    <article class="product-card" id="club-cap">
-                        <div class="product-photo">
-                            <img src="images/club-cap.png" alt="Navy MSQ Club baseball cap with an embroidered crest">
-                            <span class="new-label">New</span>
-                        </div>
-                        <h3>MSQ Club Cap</h3>
-                        <p class="product-description">A navy cap with an embroidered MSQ Club crest and a contrasting brim edge.</p>
-                        <p class="product-price">9,990 ₸</p>
-                        <p class="product-sizes">Sizes: Ask the store</p>
-                        <a class="btn btn-outline-dark" href="https://wa.me/77787777674" target="_blank" rel="noopener noreferrer">Contact the store</a>
-                    </article>
+            <section class="catalog-results" aria-label="Products">
+                <label class="form-label" for="product-search">Search products</label>
+
+                <div class="search-control">
+                    <span aria-hidden="true">⌕</span>
+                    <input class="form-control" id="product-search" type="search"
+                           placeholder="Search by name">
                 </div>
-                <p class="note">For current prices and availability, contact the store on WhatsApp.</p>
+
+                <div class="results-bar">
+                    <p id="product-count" role="status"></p>
+
+                    <button class="btn btn-outline-dark mobile-favorites" id="favorites-toggle"
+                            type="button" aria-controls="favorites-panel" aria-expanded="false">
+                        <span aria-hidden="true">♥</span> Favorites (<span id="mobile-count">0</span>)
+                    </button>
+                </div>
+
+                <div class="products-grid" id="products-grid"></div>
+
+                <div class="review-panel" id="no-products" hidden>
+                    <h2>No products found</h2>
+                    <p>Try another search or reset the category.</p>
+                    <button class="btn btn-outline-dark" id="clear-filters" type="button">
+                        Clear filters
+                    </button>
+                </div>
             </section>
+
+            <aside class="review-panel favorites-panel" id="favorites-panel" aria-labelledby="favorites-title">
+                <h2 id="favorites-title">Favorites <span id="favorite-count">0</span></h2>
+                <p id="empty-favorites">No favorites yet.</p>
+                <ul id="favorite-list"></ul>
+            </aside>
         </div>
     </main>
 
@@ -146,5 +113,7 @@
             <p>Ismail, Mustafa, Abilkayir</p>
         </div>
     </footer>
+
+    <script src="js/catalog.js"></script>
 </body>
 </html>
