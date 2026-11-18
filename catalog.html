@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/catalog.css">
     <link rel="stylesheet" href="css/endterm.css">
+    <link rel="stylesheet" href="css/shop.css">
 </head>
 <body>
     <header class="site-header">
@@ -28,8 +29,15 @@
     </header>
 
     <main class="container page-content">
-        <h1>Catalog</h1>
-        <p class="page-intro">Textures, layers and everyday essentials from MSQ.</p>
+        <div class="shop-heading">
+            <div>
+                <h1>Catalog</h1>
+                <p class="page-intro">Textures, layers and everyday essentials from MSQ.</p>
+            </div>
+            <a class="btn btn-outline-dark bag-link" href="bag.html">
+                Bag <span id="bag-count">0</span>
+            </a>
+        </div>
 
         <div class="catalog-layout">
             <aside class="review-panel category-panel">
@@ -39,8 +47,10 @@
                     <li><button type="button" data-category="all" aria-pressed="true">All categories</button></li>
                     <li><button type="button" data-category="knitwear" aria-pressed="false">Knitwear</button></li>
                     <li><button type="button" data-category="polo" aria-pressed="false">Polo shirts</button></li>
+                    <li><button type="button" data-category="t-shirts" aria-pressed="false">T-shirts</button></li>
                     <li><button type="button" data-category="outerwear" aria-pressed="false">Outerwear</button></li>
                     <li><button type="button" data-category="denim" aria-pressed="false">Denim</button></li>
+                    <li><button type="button" data-category="trousers" aria-pressed="false">Trousers</button></li>
                     <li><button type="button" data-category="shoes" aria-pressed="false">Shoes</button></li>
                     <li><button type="button" data-category="accessories" aria-pressed="false">Accessories</button></li>
                 </ul>
@@ -49,13 +59,25 @@
             </aside>
 
             <section class="catalog-results" aria-label="Products">
-                <label class="form-label" for="product-search">Search products</label>
-
-                <div class="search-control">
-                    <span aria-hidden="true">⌕</span>
-                    <input class="form-control" id="product-search" type="search"
-                           placeholder="Search by name">
+                <div class="catalog-toolbar">
+                    <div>
+                        <label class="form-label" for="product-search">Search products</label>
+                        <div class="search-control">
+                            <span aria-hidden="true">⌕</span>
+                            <input class="form-control" id="product-search" type="search"
+                                   placeholder="Search by name">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label" for="product-sort">Sort by</label>
+                        <select class="form-select" id="product-sort">
+                            <option value="default">Default order</option>
+                            <option value="price-asc">Price: low to high</option>
+                            <option value="price-desc">Price: high to low</option>
+                        </select>
+                    </div>
                 </div>
+                <p class="shop-error" id="catalog-error" role="status" hidden></p>
 
                 <div class="results-bar">
                     <p id="product-count" role="status"></p>
@@ -81,8 +103,25 @@
                 <h2 id="favorites-title">Favorites <span id="favorite-count">0</span></h2>
                 <p id="empty-favorites">No favorites yet.</p>
                 <ul id="favorite-list"></ul>
+                <button type="button" class="btn btn-outline-dark" id="clear-favorites" hidden>
+                    Clear favorites
+                </button>
             </aside>
         </div>
+
+        <dialog class="size-dialog" id="size-dialog" aria-labelledby="size-dialog-title">
+            <form id="bag-add-form">
+                <h2 id="size-dialog-title"></h2>
+                <p class="product-price" id="size-dialog-price"></p>
+                <label class="form-label" for="bag-add-size">Size</label>
+                <select class="form-select" id="bag-add-size" required autofocus></select>
+                <p class="shop-error" id="size-dialog-error" role="status" hidden></p>
+                <div class="dialog-actions">
+                    <button class="btn btn-outline-dark" type="button" id="size-dialog-cancel">Cancel</button>
+                    <button class="btn btn-dark" type="submit">Add to bag</button>
+                </div>
+            </form>
+        </dialog>
     </main>
 
     <footer class="site-footer">
@@ -114,6 +153,9 @@
         </div>
     </footer>
 
-    <script src="js/catalog.js"></script>
+    <script defer src="js/products.js"></script>
+    <script defer src="js/storage.js"></script>
+    <script defer src="js/bag-store.js"></script>
+    <script defer src="js/catalog.js"></script>
 </body>
 </html>

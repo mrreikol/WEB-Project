@@ -8,6 +8,7 @@
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/shop.css">
 </head>
 <body>
     <header class="site-header">
@@ -45,46 +46,16 @@
             <img class="hero-image" src="images/msq-store.jpg" alt="Interior of a real MSQ clothing store">
         </section>
 
-        <section class="section">
+        <section class="section" aria-labelledby="arrivals-title">
             <div class="section-heading">
-                <h2>Featured Products</h2>
+                <h2 id="arrivals-title">New Arrivals</h2>
                 <a href="catalog.html">View all products</a>
             </div>
-            <div class="featured-products">
-                <article class="product-card">
-                    <div class="product-photo">
-                        <img src="images/cardigan.png" alt="Brown ribbed cardigan with a stand collar and a full zip">
-                        <span class="new-label">New</span>
-                    </div>
-                    <h3>Chocolate Zip Cardigan</h3>
-                    <p class="product-description">Ribbed texture, a stand collar and a full zip. A rich brown layer to pair with denim.</p>
-                    <p class="product-price">24,990 ₸</p>
-                    <p class="product-sizes">Sizes: S, M, L, XL, 2XL</p>
-                    <a class="btn btn-outline-dark" href="catalog.html#chocolate-cardigan">View in catalog</a>
-                </article>
-                <article class="product-card">
-                    <div class="product-photo">
-                        <img src="images/puffer-jacket.png" alt="Grey quilted jacket with a hood and zip front">
-                        <span class="new-label">New</span>
-                    </div>
-                    <h3>Graphite Hooded Jacket</h3>
-                    <p class="product-description">A graphite quilted jacket with a hood and zip front. Finish your look with a clean outer layer.</p>
-                    <p class="product-price">44,990 ₸</p>
-                    <p class="product-sizes">Sizes: S, M, L, XL, 2XL</p>
-                    <a class="btn btn-outline-dark" href="catalog.html#graphite-jacket">View in catalog</a>
-                </article>
-                <article class="product-card">
-                    <div class="product-photo">
-                        <img src="images/jeans.png" alt="Dark indigo straight-leg MSQ jeans with contrast stitching">
-                        <span class="new-label">New</span>
-                    </div>
-                    <h3>Indigo Straight Jeans</h3>
-                    <p class="product-description">Dark indigo denim, a straight leg and contrast stitching. A foundation for everyday outfits.</p>
-                    <p class="product-price">22,990 ₸</p>
-                    <p class="product-sizes">Sizes: S, M, L, XL, 2XL</p>
-                    <a class="btn btn-outline-dark" href="catalog.html#indigo-jeans">View in catalog</a>
-                </article>
-            </div>
+            <p id="arrivals-status" role="status">Loading new arrivals…</p>
+            <button class="btn btn-outline-dark arrivals-retry" type="button" id="arrivals-retry" hidden>
+                Try again
+            </button>
+            <div class="featured-products" id="arrivals-grid" aria-busy="true" hidden></div>
         </section>
     </main>
 
@@ -116,5 +87,7 @@
             <p>Ismail, Mustafa, Abilkayir</p>
         </div>
     </footer>
+    <script defer src="js/products.js"></script>
+    <script defer src="js/arrivals.js"></script>
 </body>
 </html>

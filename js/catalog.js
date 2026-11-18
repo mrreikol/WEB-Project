@@ -1,70 +1,5 @@
-const storeUrl = "https://wa.me/77787777674";
-const clothingSizes = "S, M, L, XL, 2XL";
-
-const products = [
-    {
-        id: "chocolate-cardigan",
-        name: "Chocolate Zip Cardigan",
-        category: "knitwear",
-        image: "images/cardigan.png",
-        alt: "Brown ribbed cardigan with a stand collar and a full zip",
-        description: "Ribbed texture, stand collar and full zip.",
-        price: "24,990 ₸",
-        sizes: clothingSizes
-    },
-    {
-        id: "chocolate-polo",
-        name: "Chocolate Zip Polo",
-        category: "polo",
-        image: "images/polo.png",
-        alt: "Brown short-sleeve ribbed polo with a zip neckline",
-        description: "Vertical ribbing and a zip neckline.",
-        price: "17,990 ₸",
-        sizes: clothingSizes
-    },
-    {
-        id: "graphite-jacket",
-        name: "Graphite Hooded Jacket",
-        category: "outerwear",
-        image: "images/puffer-jacket.png",
-        alt: "Grey quilted jacket with a hood and zip front",
-        description: "Quilted jacket with a hood and zip front.",
-        price: "44,990 ₸",
-        sizes: clothingSizes
-    },
-    {
-        id: "indigo-jeans",
-        name: "Indigo Straight Jeans",
-        category: "denim",
-        image: "images/jeans.png",
-        alt: "Dark indigo straight-leg MSQ jeans with contrast stitching",
-        description: "Dark indigo denim and a straight leg.",
-        price: "22,990 ₸",
-        sizes: clothingSizes
-    },
-    {
-        id: "brown-sneakers",
-        name: "Dark Brown Sneakers",
-        category: "shoes",
-        image: "images/sneakers.png",
-        alt: "Dark brown MSQ lace-up sneakers with white soles",
-        description: "Dark brown panels and a white sole.",
-        price: "29,990 ₸",
-        sizes: "Ask the store"
-    },
-    {
-        id: "club-cap",
-        name: "MSQ Club Cap",
-        category: "accessories",
-        image: "images/club-cap.png",
-        alt: "Navy MSQ Club baseball cap with an embroidered crest",
-        description: "Navy cap with an embroidered crest.",
-        price: "9,990 ₸",
-        sizes: "Ask the store"
-    }
-];
-
 const searchInput = document.getElementById("product-search");
+const sortInput = document.getElementById("product-sort");
 const categoryButtons = document.querySelectorAll("#category-list button");
 const productsGrid = document.getElementById("products-grid");
 const productCount = document.getElementById("product-count");
@@ -75,22 +10,29 @@ const favoriteList = document.getElementById("favorite-list");
 const favoriteCount = document.getElementById("favorite-count");
 const mobileCount = document.getElementById("mobile-count");
 const emptyFavorites = document.getElementById("empty-favorites");
+const clearFavorites = document.getElementById("clear-favorites");
+const sizeDialog = document.getElementById("size-dialog");
+const sizeSelect = document.getElementById("bag-add-size");
+const sizeDialogError = document.getElementById("size-dialog-error");
+const catalogError = document.getElementById("catalog-error");
 
-const favoriteIds = [];
+const favoritesKey = "msq.favoriteIds";
+let favoriteIds = loadFavorites();
 let selectedCategory = "all";
+let selectedProduct;
+
+function loadFavorites() {
+    return [...new Set(loadSavedList(favoritesKey).filter(id => findProduct(id)))];
+}
 
 function getVisibleProducts() {
     const search = searchInput.value.trim().toLowerCase();
-    const visibleProducts = [];
+    const visibleProducts = products.filter(product => product.matches(search, selectedCategory));
 
-    for (const product of products) {
-        const matchesName = product.name.toLowerCase().includes(search);
-        const matchesCategory =
-            selectedCategory === "all" || product.category === selectedCategory;
-
-        if (matchesName && matchesCategory) {
-            visibleProducts.push(product);
-        }
+    if (sortInput.value === "price-asc") {
+        visibleProducts.sort((first, second) => first.price - second.price);
+    } else if (sortInput.value === "price-desc") {
+        visibleProducts.sort((first, second) => second.price - first.price);
     }
 
     return visibleProducts;
@@ -102,7 +44,6 @@ function createProductCard(product) {
 
     card.className = "product-card";
     card.id = product.id;
-
     card.innerHTML = `
         <div class="product-photo">
             <img src="${product.image}" alt="${product.alt}">
@@ -111,11 +52,11 @@ function createProductCard(product) {
         <div class="product-body">
             <h3>${product.name}</h3>
             <p class="product-description">${product.description}</p>
-            <p class="product-price">${product.price}</p>
-            <p class="product-sizes">Sizes: ${product.sizes}</p>
+            <p class="product-price">${product.formattedPrice()}</p>
+            <p class="product-sizes">${product.sizeLabel()}</p>
             <div class="product-actions">
-                <a class="btn btn-outline-dark" href="${storeUrl}"
-                   target="_blank" rel="noopener noreferrer">Contact the store</a>
+                <button type="button" class="btn btn-dark" data-add="${product.id}"
+                        aria-label="Add ${product.name} to bag">Add to bag</button>
                 <button type="button" class="btn btn-outline-dark favorite-button"
                         data-favorite="${product.id}" aria-label="Favorite: ${product.name}"
                         aria-pressed="${isFavorite}">${isFavorite ? "♥" : "♡"}</button>
@@ -128,14 +69,8 @@ function createProductCard(product) {
 
 function renderProducts() {
     const visibleProducts = getVisibleProducts();
-    productsGrid.replaceChildren();
-
-    for (const product of visibleProducts) {
-        productsGrid.append(createProductCard(product));
-    }
-
-    productCount.textContent = "Showing " + visibleProducts.length +
-        " of " + products.length + " products";
+    productsGrid.replaceChildren(...visibleProducts.map(createProductCard));
+    productCount.textContent = "Showing " + visibleProducts.length + " of " + products.length + " products";
     noProducts.hidden = visibleProducts.length > 0;
 }
 
@@ -143,8 +78,7 @@ function setCategory(category) {
     selectedCategory = category;
 
     for (const button of categoryButtons) {
-        const isSelected = button.dataset.category === category;
-        button.setAttribute("aria-pressed", String(isSelected));
+        button.setAttribute("aria-pressed", String(button.dataset.category === category));
     }
 
     renderProducts();
@@ -156,15 +90,13 @@ function renderFavorites() {
     for (const product of products) {
         if (favoriteIds.includes(product.id)) {
             const item = document.createElement("li");
-
             item.innerHTML = `
                 <strong>${product.name}</strong>
-                <p>${product.price}</p>
+                <p>${product.formattedPrice()}</p>
                 <button type="button" class="btn btn-outline-dark"
                         data-remove="${product.id}"
                         aria-label="Remove ${product.name} from favorites">Remove</button>
             `;
-
             favoriteList.append(item);
         }
     }
@@ -172,12 +104,20 @@ function renderFavorites() {
     favoriteCount.textContent = favoriteIds.length;
     mobileCount.textContent = favoriteIds.length;
     emptyFavorites.hidden = favoriteIds.length > 0;
+    clearFavorites.hidden = favoriteIds.length === 0;
 
     for (const button of productsGrid.querySelectorAll("[data-favorite]")) {
         const isFavorite = favoriteIds.includes(button.dataset.favorite);
         button.setAttribute("aria-pressed", String(isFavorite));
         button.textContent = isFavorite ? "♥" : "♡";
     }
+}
+
+function saveFavorites() {
+    const saved = saveList(favoritesKey, favoriteIds);
+    catalogError.textContent = saved ? "" : "Favorites could not be saved in this browser.";
+    catalogError.hidden = saved;
+    renderFavorites();
 }
 
 function toggleFavorite(id) {
@@ -189,10 +129,48 @@ function toggleFavorite(id) {
         favoriteIds.splice(index, 1);
     }
 
-    renderFavorites();
+    saveFavorites();
+}
+
+function renderBagCount() {
+    const count = loadBag().reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById("bag-count").textContent = count;
+}
+
+function addToShoppingBag(product, size, errorMessage) {
+    const bag = loadBag();
+    addBagItem(bag, product.id, size);
+
+    if (saveList(bagStorageKey, bag)) {
+        if (sizeDialog.open) {
+            sizeDialog.close();
+        }
+        window.location.assign("bag.html");
+        return;
+    }
+
+    errorMessage.textContent = "Your bag could not be saved. Allow browser storage and try again.";
+    errorMessage.hidden = false;
+}
+
+function openSizeDialog(product) {
+    selectedProduct = product;
+    document.getElementById("size-dialog-title").textContent = product.name;
+    document.getElementById("size-dialog-price").textContent = product.formattedPrice();
+    sizeSelect.replaceChildren(new Option("Select a size", ""));
+    sizeSelect.options[0].disabled = true;
+
+    for (const size of product.sizes) {
+        sizeSelect.add(new Option(size, size));
+    }
+
+    sizeSelect.value = "";
+    sizeDialogError.hidden = true;
+    sizeDialog.showModal();
 }
 
 searchInput.addEventListener("input", renderProducts);
+sortInput.addEventListener("change", renderProducts);
 
 for (const button of categoryButtons) {
     button.addEventListener("click", function () {
@@ -202,16 +180,40 @@ for (const button of categoryButtons) {
 
 document.getElementById("clear-filters").addEventListener("click", function () {
     searchInput.value = "";
+    sortInput.value = "default";
     setCategory("all");
     searchInput.focus();
 });
 
 productsGrid.addEventListener("click", function (event) {
-    const button = event.target.closest("[data-favorite]");
+    const favoriteButton = event.target.closest("[data-favorite]");
+    const addButton = event.target.closest("[data-add]");
 
-    if (button) {
-        toggleFavorite(button.dataset.favorite);
+    if (favoriteButton) {
+        toggleFavorite(favoriteButton.dataset.favorite);
     }
+
+    if (addButton) {
+        const product = findProduct(addButton.dataset.add);
+
+        if (product.sizes.length === 1) {
+            addToShoppingBag(product, product.sizes[0], catalogError);
+        } else {
+            openSizeDialog(product);
+        }
+    }
+});
+
+document.getElementById("bag-add-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    if (selectedProduct?.hasSize(sizeSelect.value)) {
+        addToShoppingBag(selectedProduct, sizeSelect.value, sizeDialogError);
+    }
+});
+
+document.getElementById("size-dialog-cancel").addEventListener("click", function () {
+    sizeDialog.close();
 });
 
 favoriteList.addEventListener("click", function (event) {
@@ -220,6 +222,11 @@ favoriteList.addEventListener("click", function (event) {
     if (button) {
         toggleFavorite(button.dataset.remove);
     }
+});
+
+clearFavorites.addEventListener("click", function () {
+    favoriteIds = [];
+    saveFavorites();
 });
 
 favoritesToggle.addEventListener("click", function () {
@@ -231,11 +238,34 @@ favoritesToggle.addEventListener("click", function () {
     }
 });
 
+window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+        favoriteIds = loadFavorites();
+        renderFavorites();
+        renderBagCount();
+    }
+});
+
+window.addEventListener("storage", function (event) {
+    if (event.key === favoritesKey || event.key === null) {
+        favoriteIds = loadFavorites();
+        renderFavorites();
+    }
+    if (event.key === bagStorageKey || event.key === null) {
+        renderBagCount();
+    }
+});
+
 renderProducts();
+renderFavorites();
+renderBagCount();
 
-// Home links directly to individual products.
-const linkedProduct = document.getElementById(window.location.hash.slice(1));
-
-if (linkedProduct && productsGrid.contains(linkedProduct)) {
-    linkedProduct.scrollIntoView();
+function scrollToLinkedProduct() {
+    const linkedProduct = document.getElementById(window.location.hash.slice(1));
+    if (linkedProduct && productsGrid.contains(linkedProduct)) {
+        linkedProduct.scrollIntoView();
+    }
 }
+
+scrollToLinkedProduct();
+window.addEventListener("hashchange", scrollToLinkedProduct);

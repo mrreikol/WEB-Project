@@ -1,0 +1,240 @@
+.shop-heading,
+.dialog-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.shop-heading {
+    align-items: flex-start;
+}
+
+.shop-heading .bag-link {
+    margin-top: 7px;
+    padding: 8px 10px;
+    flex-shrink: 0;
+}
+
+#bag-count {
+    display: inline-block;
+    min-width: 22px;
+    margin-left: 4px;
+    padding: 1px 4px;
+    background-color: var(--selected);
+    color: #222;
+    text-align: center;
+}
+
+.catalog-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 12px;
+}
+
+.catalog-toolbar select {
+    width: 100%;
+}
+
+.catalog-results .product-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 36px;
+}
+
+.page-content .product-actions .btn {
+    min-height: 36px;
+}
+
+.page-content .product-actions .favorite-button {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    line-height: 1;
+}
+
+.size-dialog {
+    width: min(420px, calc(100% - 36px));
+    max-height: 90vh;
+    padding: 22px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: #222;
+}
+
+.size-dialog::backdrop {
+    background: rgb(0 0 0 / 40%);
+}
+
+.dialog-actions {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+.dialog-actions .btn,
+.bag-summary .btn {
+    min-height: 38px;
+    padding: 9px 13px;
+    font-size: 13px;
+}
+
+.shop-error {
+    margin: 12px 0;
+    color: #921e28;
+    font-size: 13px;
+}
+
+.bag-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(230px, 0.42fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.bag-empty,
+.bag-summary {
+    padding: 20px;
+}
+
+.bag-items {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.bag-row {
+    display: grid;
+    grid-template-columns: 78px minmax(0, 1fr) auto minmax(62px, auto);
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--line);
+}
+
+.bag-photo {
+    width: 78px;
+    aspect-ratio: 4 / 5;
+    background: #f1eee8;
+    object-fit: contain;
+}
+
+.bag-item-details {
+    min-width: 0;
+}
+
+.bag-item-details h3 {
+    margin-bottom: 6px;
+    overflow-wrap: anywhere;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.bag-size {
+    max-width: 105px;
+}
+
+.bag-size .form-label {
+    margin-bottom: 1px;
+}
+
+.bag-size-text {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.bag-quantity {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.bag-quantity .btn {
+    min-width: 33px;
+    min-height: 33px;
+}
+
+.bag-quantity-value {
+    min-width: 22px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.bag-item-price {
+    display: grid;
+    justify-items: end;
+    gap: 7px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.bag-summary .bag-total {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.bag-summary .bag-order {
+    display: block;
+    margin: 0 0 10px;
+}
+
+.bag-secondary-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+#arrivals-status:not(.visually-hidden) {
+    margin-bottom: 10px;
+    color: #60605c;
+}
+
+.arrivals-retry {
+    margin-bottom: 14px;
+}
+
+@media (max-width: 850px) {
+    .bag-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .catalog-toolbar {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+    }
+
+    .bag-row {
+        grid-template-columns: 64px minmax(0, 1fr) auto;
+        gap: 8px 10px;
+    }
+
+    .bag-photo {
+        grid-row: span 2;
+        width: 64px;
+    }
+
+    .bag-item-details {
+        grid-column: 2 / -1;
+    }
+
+    .bag-quantity {
+        grid-column: 2;
+    }
+
+    .bag-quantity .btn {
+        min-width: 29px;
+        padding-inline: 5px;
+    }
+
+    .bag-quantity-value {
+        min-width: 18px;
+    }
+}

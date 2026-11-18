@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shopping Bag — MSQ Astana student website by Ismail, Mustafa and Abilkayir.">
+    <title>Shopping Bag | MSQ Astana</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/catalog.css">
+    <link rel="stylesheet" href="css/endterm.css">
+    <link rel="stylesheet" href="css/shop.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="container main-nav" aria-label="Main navigation">
+            <a href="index.html">
+                <img class="logo" src="images/msq-logo.png" alt="MSQ home">
+            </a>
+
+            <ul class="nav-links">
+                <li><a class="nav-link" href="index.html">Home</a></li>
+                <li><a class="nav-link" href="catalog.html">Catalog</a></li>
+                <li><a class="nav-link" href="size-guide.html">Size Guide</a></li>
+                <li><a class="nav-link" href="about.html">About Us</a></li>
+                <li><a class="nav-link" href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container page-content">
+        <h1>Shopping Bag</h1>
+        <p class="page-intro">Review your products, sizes and quantities.</p>
+        <p class="shop-error" id="bag-error" role="status" hidden></p>
+
+        <section class="review-panel bag-empty" id="empty-bag">
+            <h2>Your bag is empty</h2>
+            <a href="catalog.html" class="btn btn-dark">Continue shopping</a>
+        </section>
+
+        <div class="bag-layout" id="bag-content" hidden>
+            <section aria-label="Products in your bag">
+                <ul class="bag-items" id="bag-items"></ul>
+            </section>
+            <aside class="review-panel bag-summary" aria-labelledby="bag-total-title">
+                <h2 id="bag-total-title">Order total</h2>
+                <p class="bag-total" id="bag-total" aria-live="polite"></p>
+                <a class="btn btn-dark bag-order" id="whatsapp-order" target="_blank" rel="noopener noreferrer">
+                    Order via WhatsApp
+                </a>
+                <div class="bag-secondary-actions">
+                    <a href="catalog.html" class="btn btn-outline-dark">Continue shopping</a>
+                    <button class="btn btn-outline-dark" type="button" id="clear-bag">Clear bag</button>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div>
+                <img class="footer-logo" src="images/msq-logo.png" alt="MSQ" width="249" height="249">
+                <p>Clothing store in Qazaqstan.</p>
+            </div>
+
+            <nav aria-label="Footer navigation">
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="catalog.html">Catalog</a></li>
+                    <li><a href="size-guide.html">Size Guide</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="social-links">
+                <a href="https://www.instagram.com/msq.official/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://wa.me/77787777674" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <p>© 2026 MSQ — educational redesign</p>
+            <p>Ismail, Mustafa, Abilkayir</p>
+        </div>
+    </footer>
+
+    <script defer src="js/products.js"></script>
+    <script defer src="js/storage.js"></script>
+    <script defer src="js/bag-store.js"></script>
+    <script defer src="js/bag.js"></script>
+</body>
+</html>
