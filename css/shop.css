@@ -36,6 +36,39 @@
     width: 100%;
 }
 
+.price-filter {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) auto auto;
+    align-items: end;
+    gap: 10px;
+    margin: 14px 0;
+    padding: 14px;
+    background: #f6f4f0;
+}
+
+.price-filter-field {
+    min-width: 0;
+}
+
+.price-filter .form-label {
+    margin-bottom: 4px;
+}
+
+.price-filter .btn {
+    min-height: 38px;
+    white-space: nowrap;
+}
+
+.price-filter-message {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-size: 13px;
+}
+
+.price-filter-message.is-error {
+    color: #921e28;
+}
+
 .catalog-results .product-actions {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 36px;
@@ -203,12 +236,20 @@
     .bag-layout {
         grid-template-columns: minmax(0, 1fr);
     }
+
+    .price-filter {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 @media (max-width: 480px) {
     .catalog-toolbar {
         grid-template-columns: minmax(0, 1fr);
         gap: 8px;
+    }
+
+    .price-filter .btn {
+        white-space: normal;
     }
 
     .bag-row {

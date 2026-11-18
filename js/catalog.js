@@ -1,5 +1,9 @@
 const searchInput = document.getElementById("product-search");
 const sortInput = document.getElementById("product-sort");
+const priceForm = document.getElementById("price-filter");
+const minPriceInput = document.getElementById("price-min");
+const maxPriceInput = document.getElementById("price-max");
+const priceMessage = document.getElementById("price-filter-message");
 const categoryButtons = document.querySelectorAll("#category-list button");
 const productsGrid = document.getElementById("products-grid");
 const productCount = document.getElementById("product-count");
@@ -20,6 +24,8 @@ const favoritesKey = "msq.favoriteIds";
 let favoriteIds = loadFavorites();
 let selectedCategory = "all";
 let selectedProduct;
+let priceMin = null;
+let priceMax = null;
 
 function loadFavorites() {
     return [...new Set(loadSavedList(favoritesKey).filter(id => findProduct(id)))];
@@ -27,7 +33,11 @@ function loadFavorites() {
 
 function getVisibleProducts() {
     const search = searchInput.value.trim().toLowerCase();
-    const visibleProducts = products.filter(product => product.matches(search, selectedCategory));
+    const visibleProducts = products.filter(product =>
+        product.matches(search, selectedCategory) &&
+        (priceMin === null || product.price >= priceMin) &&
+        (priceMax === null || product.price <= priceMax)
+    );
 
     if (sortInput.value === "price-asc") {
         visibleProducts.sort((first, second) => first.price - second.price);
@@ -172,6 +182,43 @@ function openSizeDialog(product) {
 searchInput.addEventListener("input", renderProducts);
 sortInput.addEventListener("change", renderProducts);
 
+priceForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const min = minPriceInput.value.trim() === "" ? null : Number(minPriceInput.value);
+    const max = maxPriceInput.value.trim() === "" ? null : Number(maxPriceInput.value);
+
+    if ((min !== null && (!Number.isInteger(min) || min < 0)) ||
+        (max !== null && (!Number.isInteger(max) || max < 0)) ||
+        (min !== null && max !== null && min > max)) {
+        priceMessage.textContent = "Enter whole, non-negative prices. From cannot exceed To.";
+        priceMessage.classList.add("is-error");
+        priceMessage.hidden = false;
+        return;
+    }
+
+    priceMin = min;
+    priceMax = max;
+    priceMessage.classList.remove("is-error");
+    priceMessage.textContent = min === null && max === null ? "" :
+        "Showing prices " + (min === null ? "from 0 ₸" : "from " + formatPrice(min)) +
+        (max === null ? "" : " to " + formatPrice(max)) + ".";
+    priceMessage.hidden = priceMessage.textContent === "";
+    renderProducts();
+});
+
+function clearPriceFilter() {
+    minPriceInput.value = "";
+    maxPriceInput.value = "";
+    priceMin = null;
+    priceMax = null;
+    priceMessage.textContent = "";
+    priceMessage.classList.remove("is-error");
+    priceMessage.hidden = true;
+    renderProducts();
+}
+
+document.getElementById("clear-price").addEventListener("click", clearPriceFilter);
+
 for (const button of categoryButtons) {
     button.addEventListener("click", function () {
         setCategory(button.dataset.category);
@@ -181,6 +228,7 @@ for (const button of categoryButtons) {
 document.getElementById("clear-filters").addEventListener("click", function () {
     searchInput.value = "";
     sortInput.value = "default";
+    clearPriceFilter();
     setCategory("all");
     searchInput.focus();
 });

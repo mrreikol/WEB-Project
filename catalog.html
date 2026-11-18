@@ -77,6 +77,21 @@
                         </select>
                     </div>
                 </div>
+                <form class="price-filter" id="price-filter" aria-label="Price range" novalidate>
+                    <div class="price-filter-field">
+                        <label class="form-label" for="price-min">Price from (₸)</label>
+                        <input class="form-control" id="price-min" type="number" min="0" step="1"
+                               inputmode="numeric" placeholder="Min price">
+                    </div>
+                    <div class="price-filter-field">
+                        <label class="form-label" for="price-max">Price to (₸)</label>
+                        <input class="form-control" id="price-max" type="number" min="0" step="1"
+                               inputmode="numeric" placeholder="Max price">
+                    </div>
+                    <button class="btn btn-dark" type="submit">Apply price</button>
+                    <button class="btn btn-outline-dark" id="clear-price" type="button">Clear price</button>
+                    <p class="price-filter-message" id="price-filter-message" role="status" hidden></p>
+                </form>
                 <p class="shop-error" id="catalog-error" role="status" hidden></p>
 
                 <div class="results-bar">
@@ -92,7 +107,7 @@
 
                 <div class="review-panel" id="no-products" hidden>
                     <h2>No products found</h2>
-                    <p>Try another search or reset the category.</p>
+                    <p>Try another search or clear the filters.</p>
                     <button class="btn btn-outline-dark" id="clear-filters" type="button">
                         Clear filters
                     </button>
